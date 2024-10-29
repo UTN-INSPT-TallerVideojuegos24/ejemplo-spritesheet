@@ -10,7 +10,7 @@ enum mov_t { ARRIBA, IZQ, ABAJO, DER };
 // Cantidad máxima de animaciones (columnas) del spritesheet:
 const unsigned int MAX_MOV = 9;
 // Tamaño del sprite individual:
-const Vector2 SPR_SIZE = {64, 64};
+const float SPR_SIZE = 64.f;
 
 // El movimiento y la animación dependen del FRAMERATE.
 // Esto es importante, porque de no estar, la animación del personaje
@@ -61,34 +61,36 @@ int main() {
       mov_cycle_time = MOVE_CYCLE_TIME;
       // Flag de tecla precioanda
       bool esta_moviendose = false;
+      Vector2f desplazamiento = {0.f, 0.f};
       if (Keyboard::isKeyPressed(Keyboard::S)) {
         esta_moviendose = true;
         spr_mov.y = ABAJO;
         if (!colision_con_ventana(punga.getGlobalBounds(), INFERIOR)) {
-          punga.move(0, VELOCIDAD);
+          desplazamiento.y = VELOCIDAD;
         }
       } else if (Keyboard::isKeyPressed(Keyboard::W)) {
         esta_moviendose = true;
         spr_mov.y = ARRIBA;
         if (!colision_con_ventana(punga.getGlobalBounds(), SUPERIOR)) {
-          punga.move(0, -VELOCIDAD);
+          desplazamiento.y = -VELOCIDAD;
         }
       }
       if (Keyboard::isKeyPressed(Keyboard::A)) {
         esta_moviendose = true;
         spr_mov.y = IZQ;
         if (!colision_con_ventana(punga.getGlobalBounds(), IZQUIERDO)) {
-          punga.move(-VELOCIDAD, 0);
+          desplazamiento.x = -VELOCIDAD;
         }
       } else if (Keyboard::isKeyPressed(Keyboard::D)) {
         esta_moviendose = true;
         spr_mov.y = DER;
         if (!colision_con_ventana(punga.getGlobalBounds(), DERECHO)) {
-          punga.move(VELOCIDAD, 0);
+          desplazamiento.x = VELOCIDAD;
         }
       }
       // Si una tecla fue precionada, hay que mover el sprite del personaje:
       if (esta_moviendose) {
+        punga.move(desplazamiento);
         spr_mov.x++; // Se incrementa en 1 para moverse un sprite dentro del
                      // spritesheet
         if (spr_mov.x == MAX_MOV) { // Si se alcanzó el límite de la animación
@@ -101,8 +103,8 @@ int main() {
       }
     }
     // Se toma el sprite adecuado del spritesheet para dibujar:
-    punga.setTextureRect(IntRect(spr_mov.x * SPR_SIZE.x, spr_mov.y * SPR_SIZE.y,
-                                 SPR_SIZE.x, SPR_SIZE.y));
+    punga.setTextureRect(IntRect(spr_mov.x * SPR_SIZE, spr_mov.y * SPR_SIZE,
+                                 SPR_SIZE, SPR_SIZE));
 
     // Se dibuja el personaje en la pantalla:
     ventana.clear();
