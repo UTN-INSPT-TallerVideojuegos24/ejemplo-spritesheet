@@ -17,7 +17,7 @@ const float SPR_SIZE = 64.f;
 // se haría a la misma velocidad del FRAMERATE, lo que daría un movimiento
 // demasiado rápido (por lo general).
 const int MOVE_CYCLE_TIME = FRAMERATE / 16;
-const int VELOCIDAD = 4.5f;
+const float VELOCIDAD = 4.5f;
 
 // lee los eventos (clicks, posición del mouse, redimensión de la ventana, etc)
 void leer_eventos(RenderWindow &ventana);
