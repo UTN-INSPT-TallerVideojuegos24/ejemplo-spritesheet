@@ -66,31 +66,31 @@ int main() {
         esta_moviendose = true;
         spr_mov.y = ABAJO;
         if (!colision_con_ventana(punga.getGlobalBounds(), INFERIOR)) {
-          desplazamiento.y = VELOCIDAD;
+          desplazamiento.y = 1;
         }
       } else if (Keyboard::isKeyPressed(Keyboard::W)) {
         esta_moviendose = true;
         spr_mov.y = ARRIBA;
         if (!colision_con_ventana(punga.getGlobalBounds(), SUPERIOR)) {
-          desplazamiento.y = -VELOCIDAD;
+          desplazamiento.y = -1;
         }
       }
       if (Keyboard::isKeyPressed(Keyboard::A)) {
         esta_moviendose = true;
         spr_mov.y = IZQ;
         if (!colision_con_ventana(punga.getGlobalBounds(), IZQUIERDO)) {
-          desplazamiento.x = -VELOCIDAD;
+          desplazamiento.x = -1;
         }
       } else if (Keyboard::isKeyPressed(Keyboard::D)) {
         esta_moviendose = true;
         spr_mov.y = DER;
         if (!colision_con_ventana(punga.getGlobalBounds(), DERECHO)) {
-          desplazamiento.x = VELOCIDAD;
+          desplazamiento.x = 1;
         }
       }
       // Si una tecla fue precionada, hay que mover el sprite del personaje:
       if (esta_moviendose) {
-        punga.move(desplazamiento);
+        punga.move(desplazamiento * VELOCIDAD);
         spr_mov.x++; // Se incrementa en 1 para moverse un sprite dentro del
                      // spritesheet
         if (spr_mov.x == MAX_MOV) { // Si se alcanzó el límite de la animación
