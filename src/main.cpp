@@ -5,6 +5,11 @@ const unsigned int ANCHO_VENT = 400;
 const unsigned int ALTO_VENT = 300;
 const unsigned int FRAMERATE = 60;
 
+// Path donde se encuentran los assets (sprites, texturas, etc)
+const string ASSETS_PATH = "../assets/";
+// Nombre del spritesheet del personaje:
+const string PUNGA_SPRITESHEET = "punga.png";
+
 // Utilizado para moverse a la fila correspondiente del spritesheet:
 enum mov_t { ARRIBA, IZQ, ABAJO, DER };
 // Cantidad máxima de animaciones (columnas) del spritesheet:
@@ -41,7 +46,7 @@ int main() {
   ventana.setMouseCursorVisible(false);
   // Spritesheet con todos los movimientos:
   Texture punga_texture;
-  if (!punga_texture.loadFromFile("../assets/punga.png")) {
+  if (!punga_texture.loadFromFile(ASSETS_PATH + PUNGA_SPRITESHEET)) {
     cerr << "No se pudo cargar la textura del personaje." << endl;
     exit(-1);
   }
